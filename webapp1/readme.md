@@ -1,9 +1,37 @@
-# HELM 
-#### Create Folder
-#### In folder run command-
+```
+helm init
+```
+# Create the helmchart
+```
+helm create webapp1
+```
 
-### This will create helm sample files and directories
+# Install the first one
 ```
-helm create XYZprojectName
+Syntax - helm install releaseName* appfolder* --values values.yml
+helm install mywebapp-release webapp1/ --values mywebapp/values.yaml
 ```
-![Helm folder structure](images/screenshot1.png)
+
+# Upgrade after templating
+```
+helm upgrade mywebapp-release webapp1/ --values mywebapp/values.yaml
+```
+
+# Accessing it
+```
+minikube tunnel
+```
+
+# Create dev/prod
+```
+k create namespace dev
+k create namespace prod
+helm install mywebapp-release-dev webapp1/ --values webapp1/values.yaml -f webapp1/values-dev.yaml -n dev
+helm install mywebapp-release-prod webapp1/ --values webapp1/values.yaml -f webapp1/values-prod.yaml -n prod
+helm ls --all-namespaces
+```
+
+```
+Example-
+helm install dev-release1 webapp1 --values webapp1/values.yaml -f webapp1/environments/dev/values.yml
+```
