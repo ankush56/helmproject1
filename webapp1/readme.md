@@ -36,6 +36,28 @@ Example-
 helm install dev-release1 webapp1 --values webapp1/values.yaml -f webapp1/environments/dev/values.yml
 ```
 
+```
+Set placeholders for values
+metadata:
+  name: {{ .Values.appName }}
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: {{ .Values.appName }}
+```
+
+```
+Set values in values.yml
+appName: devhelmapp
+configname: devconfig
+namespace: dev
+```
+```
+Add repo
+helm repo add bitnami https://charts.bitnami.com/bitnami
+helm install my-wordpress bitnami/wordpress --version 10.1.4
+```
+
+
 <p>
 Why you need Helm?
 When deploying an application on Kubernetes, it is required to define and manage several Kubernetes resources such as pods, services, deployments, and replica-sets. Each of these require to write a group of manifest files in YAML format. In the context of a complex application deployment it becomes a difficult task to maintain several manifest files for each of these resources. Helm simplifies this process and creates a single package that can be advertised to your cluster. <br/>
@@ -63,9 +85,25 @@ chart.yaml: This is where you’ll put the information related to your chart. Th
 </li>
 <li>
 values.yaml: Like we saw before, this is the file that contains defaults for variables.
-templates (dir): This is the place where you’ll put all your manifest files. Everything in here will be passed on and created in Kubernetes.
+</li>
+<li>
+<b>templates (dir): This is the place where you’ll put all your manifest files. Everything in here will be passed on and created in Kubernetes.</b>
+</li>
 </li>
 <li>
 charts: If your chart depends on another chart you own, or if you don’t want to rely on Helm’s default library (the default registry where Helm pull charts from), you can bring this same structure inside this directory. Chart dependencies are installed from the bottom to the top, which means if chart A depends on chart B, and B depends on C, the installation order will be C ->B ->A.
 </li>
 </p>
+
+1. chart.yaml => Meta information about the chat such as name, version, etc.
+
+2. values.yaml => Contains default value. You can override these default values while deploying.
+
+3. charts => Contains all the chart dependencies.
+
+4. templates => All the YAML files with a placeholder for values.
+
+When to Use Helm Chart:
+1. Assume you are deploying a complex application. For that, you are using multiple YAML files for ConfigMaps, Secrets, Services, and Pods. If you want to replicate the same setup on another Kubernetes cluster then you can use the Helm charts instead of managing multiple YAML files separately.
+
+2. If you are using a standard(what all developers doing) way to install the application, then you can use Helm charts.
