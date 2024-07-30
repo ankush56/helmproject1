@@ -17,6 +17,11 @@ helm install mywebapp-release webapp1/ --values mywebapp/values.yaml
 helm upgrade mywebapp-release webapp1/ --values mywebapp/values.yaml
 ```
 
+# Troubleshoot or check before actuall install
+```
+helm template mywebapp-release webapp1/ --values mywebapp/values.yaml
+```
+
 # Accessing it
 ```
 minikube tunnel
