@@ -12,7 +12,7 @@ Syntax - helm install releaseName* appfolder* --values values.yml
 helm install mywebapp-release webapp1/ --values mywebapp/values.yaml
 ```
 
-# Upgrade after templating
+# Upgrade after first install. It will rerun and you will see revision# incremented
 ```
 helm upgrade mywebapp-release webapp1/ --values mywebapp/values.yaml
 ```
@@ -41,8 +41,8 @@ Example-
 helm install dev-release1 webapp1 --values webapp1/values.yaml -f webapp1/environments/dev/values.yml
 ```
 
+# Set placeholders for values
 ```
-Set placeholders for values
 metadata:
   name: {{ .Values.appName }}
   namespace: {{ .Values.namespace }}
@@ -50,8 +50,8 @@ metadata:
     app: {{ .Values.appName }}
 ```
 
+# Set values in values.yml
 ```
-Set values in values.yml
 appName: devhelmapp
 configname: devconfig
 namespace: dev
@@ -61,7 +61,35 @@ Add repo
 helm repo add bitnami https://charts.bitnami.com/bitnami
 helm install my-wordpress bitnami/wordpress --version 10.1.4
 ```
+# Most common commands
+```
+## Common Helm Commands
 
+| **Category**      | **Command**                                              | **Description**                                                                                           |
+|-------------------|----------------------------------------------------------|-----------------------------------------------------------------------------------------------------------|
+| **Installation**  | `helm install <release-name> <chart>`                    | Installs a Helm chart with the specified release name.                                                    |
+|                   | `helm upgrade <release-name> <chart>`                    | Upgrades an existing release to a new version of the chart.                                               |
+|                   | `helm uninstall <release-name>`                          | Uninstalls a release from the Kubernetes cluster.                                                         |
+|                   | `helm repo add <repo-name> <repo-url>`                   | Adds a new Helm chart repository.                                                                         |
+|                   | `helm repo update`                                       | Updates the information of available charts locally from chart repositories.                              |
+| **Linting**       | `helm lint <chart>`                                      | Runs a series of checks to ensure that a chart follows best practices.                                     |
+| **Template**      | `helm template <release-name> <chart>`                   | Renders the templates locally and displays the generated YAML.                                             |
+| **Troubleshooting**| `helm status <release-name>`                            | Displays the status of the specified release.                                                             |
+|                   | `helm history <release-name>`                            | Shows the history of the specified release, including previous versions and their statuses.               |
+|                   | `helm get all <release-name>`                            | Retrieves all information about the specified release, including values, hooks, and manifests.            |
+|                   | `helm get values <release-name>`                         | Shows the values used to create the specified release.                                                    |
+|                   | `helm list`                                              | Lists all releases in the current namespace.                                                              |
+| **Debugging**     | `helm install <release-name> <chart> --debug --dry-run`  | Simulates an install and provides detailed debug information without actually installing.                 |
+| **Repo Management**| `helm repo list`                                        | Lists all configured Helm chart repositories.                                                             |
+|                   | `helm search repo <keyword>`                             | Searches for charts in the configured repositories that match the keyword.                                |
+| **Release Management**| `helm rollback <release-name> <revision>`           | Rolls back a release to a specific revision.                                                              |
+|                   | `helm diff upgrade <release-name> <chart>`               | Shows a diff explaining what a `helm upgrade` would change. Requires the `helm-diff` plugin.              |
+| **Plugins**       | `helm plugin list`                                       | Lists installed Helm plugins.                                                                             |
+| **Packaging**     | `helm package <chart>`                                   | Packages a Helm chart directory into a chart archive.                                                     |
+| **Chart Management**| `helm show values <chart>`                            | Shows the default values for a chart.                                                                     |
+|                   | `helm show chart <chart>`                                | Shows the details of the chart, such as name, version, and dependencies.                                  |
+
+```
 
 <p>
 Why you need Helm?
