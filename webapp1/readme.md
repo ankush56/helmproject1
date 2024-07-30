@@ -20,6 +20,8 @@ helm upgrade mywebapp-release webapp1/ --values mywebapp/values.yaml
 # Troubleshoot or check before actuall install
 ```
 helm template mywebapp-release webapp1/ --values mywebapp/values.yaml
+e.g helm template release1 app1
+helm template anyreleasename* mainchartsfoldername*
 ```
 
 # Accessing it
