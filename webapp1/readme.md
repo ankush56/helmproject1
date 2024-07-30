@@ -42,6 +42,17 @@ helm install dev-release1 webapp1 --values webapp1/values.yaml -f webapp1/enviro
 ```
 
 # Set placeholders for values
+## Templates and Values.yml are important files
+```
+<b>Template you add all kubernetes manifest file. Like any other manifest</b> Next instead of assigning values..we want dynamic at runtime of helm
+So change value to {{ .Values.Abc.cde}}.  e.g - {{ .Values.Service.port }}
+
+Next in Values.yml. You provide actual values like
+Values.yml
+Service
+  port: 8080
+  type: Nodeport
+```
 ```
 metadata:
   name: {{ .Values.appName }}
@@ -60,8 +71,6 @@ namespace: dev
 Add repo
 helm repo add bitnami https://charts.bitnami.com/bitnami
 helm install my-wordpress bitnami/wordpress --version 10.1.4
-```
-# Most common commands
 ```
 ## Common Helm Commands
 
@@ -89,7 +98,6 @@ helm install my-wordpress bitnami/wordpress --version 10.1.4
 | **Chart Management**| `helm show values <chart>`                            | Shows the default values for a chart.                                                                     |
 |                   | `helm show chart <chart>`                                | Shows the details of the chart, such as name, version, and dependencies.                                  |
 
-```
 
 <p>
 Why you need Helm?
