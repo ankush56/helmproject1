@@ -44,10 +44,11 @@ helm install dev-release1 webapp1 --values webapp1/values.yaml -f webapp1/enviro
 # Set placeholders for values
 ## Templates and Values.yml are important files
 ```
-<b>In Template folder you add all kubernetes manifest file. Like any other manifest</b> Next instead of assigning values..we want dynamic at runtime of helm
+<b>In Template folder you add all kubernetes manifest file. Like any other manifest</b>
+Next, instead of assigning values..we want dynamic at runtime of helm
 So change value to {{ .Values.Abc.cde}}.  e.g - {{ .Values.Service.port }}
 
-Next in Values.yml. You provide actual values like
+Then, in Values.yml. You provide actual values like
 Values.yml
 Service
   port: 8080
